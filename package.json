@@ -1,0 +1,32 @@
+{
+  "name": "aws-mfa-util",
+  "version": "0.1.0",
+  "description": "MFA Credentials Helper",
+  "main": "build/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zommarin/aws-mfa-util.git"
+  },
+  "keywords": [
+    "AWS",
+    "MFA",
+    "credentials"
+  ],
+  "author": "Anders Zommarin <anders@zommarin.se>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zommarin/aws-mfa-util/issues"
+  },
+  "homepage": "https://github.com/zommarin/aws-mfa-util#readme",
+  "devDependencies": {
+    "@types/node": "^8.10.30",
+    "typescript": "^3.1.1"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.325.0",
+    "source-map-support": "^0.5.9"
+  }
+}
