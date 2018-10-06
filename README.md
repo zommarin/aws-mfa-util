@@ -13,7 +13,7 @@ You need to have [Node.js](https://nodejs.org/en/) (and `npm` which is bundled) 
 Install the package globally using `npm`:
 
 ```bash
-npm install -g @zommarin/aws-mfa-util
+npm install -g aws-mfa-util
 ```
 
 The command should now be available as:
@@ -58,7 +58,7 @@ aws-mfa-util -c 123456
 
 Which would update the file with credentials in the `[mfa]` section:
 
-```angular2html
+```
 [default]
 aws_access_key_id=BCTUMHTXNZKSRT8RDLEK
 aws_secret_access_key=LDp2llJ7R2Mwc9IpqWZbhahxcZN3nmwpq92
@@ -77,4 +77,27 @@ Now AWS CLI commands as well as AWS API based programs can use the credentials b
 
 ```bash
 export AWS_PROFILE=mfa
+```
+
+### Usage with Roles
+
+If [IAM Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) are used, then they may simply use the MFA created profile by adding the following to the `~/.aws/credentials` file:
+
+```
+[my-role-a]
+region=eu-west-1
+role_arn=arn:aws:iam::6372819375:role/TheRoleA
+source_profile=mfa
+
+[my-role-b]
+region=eu-west-1
+role_arn=arn:aws:iam::6372819375:role/TheRoleB
+source_profile=mfa
+```
+
+This way the MFA login may be re-used by the different roles simply by exporting the needed `AWS_PROFILE` variable:
+
+```
+# Select the TheRoleB role
+export AWS_PROFILE=my-role-b
 ```
