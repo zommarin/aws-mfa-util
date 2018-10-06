@@ -1,7 +1,7 @@
 {
   "name": "aws-mfa-util",
   "version": "0.1.0",
-  "description": "MFA Credentials Helper",
+  "description": "AWS MFA Credentials Helper",
   "main": "build/index.js",
   "bin": {
     "aws-mfa-util": "build/bin/aws-mfa-util"

@@ -11,7 +11,7 @@ import * as debug from 'debug'
 
 const log = debug('main')
 
-const PACKAGE_JSON = require('../package.json')
+const PACKAGE_JSON = require('../../package.json')
 
 program
     .version(PACKAGE_JSON.version)
@@ -42,6 +42,11 @@ if (program.args.length > 0) {
     process.exit(1)
 }
 
+if (!options.mfaCode) {
+    console.error('FATAL: USAGE: No MFA code specified, please use the --mfa-code option')
+    process.exit(1)
+}
+
 function info(message: string, ...args: any[]) {
     if (options.verbose) {
         console.log(message, ...args)
@@ -54,7 +59,7 @@ const fatalInfo: any = {
 
 function fatal(message: string, ...args: any[]) {
     console.error(message, ...args)
-    console.error('Debug context:', fatalInfo)
+    log('Debug info:', fatalInfo)
     process.exit(1)
 }
 
@@ -93,26 +98,28 @@ async function main() {
     }
     log('Source profile: ', srcSection)
     fatalInfo.srcSection = srcSection
+    const srcSectionMessage = `source section '${srcSection}'`
 
     const sts = new AWS.STS({
-        accessKeyId: ensure(srcSection.aws_access_key_id, 'source section', 'aws_access_key_id'),
-        secretAccessKey: ensure(srcSection.aws_secret_access_key, 'source section', 'aws_secret_access_key')
+        accessKeyId: ensure(srcSection.aws_access_key_id, srcSectionMessage, 'aws_access_key_id'),
+        secretAccessKey: ensure(srcSection.aws_secret_access_key, srcSectionMessage, 'aws_secret_access_key')
     })
     info('Requesting session token from AWS')
     const tokenReply = await sts.getSessionToken({
-        SerialNumber: ensure(srcSection.mfa_serial, 'source section', 'mfa_serial'),
+        SerialNumber: ensure(srcSection.mfa_serial, srcSectionMessage, 'mfa_serial'),
         TokenCode: ensure(options.mfaCode, 'program options', '--mfa-code')
     }).promise()
     info('Got back MFA-based token from AWS')
 
     const oldMfaSection = iniObj[options.mfaProfile]
+    const expires = tokenReply.Credentials!.Expiration.toISOString()
 
     const mfaSection = {
         ...oldMfaSection,
         aws_access_key_id: tokenReply.Credentials!.AccessKeyId,
         aws_secret_access_key: tokenReply.Credentials!.SecretAccessKey,
         aws_session_token: tokenReply.Credentials!.SessionToken,
-        expires: tokenReply.Credentials!.Expiration.toISOString()
+        expires
     }
     log(`New MFA section: name=${options.mfaProfile}`, mfaSection)
 
@@ -120,11 +127,13 @@ async function main() {
 
     log('ini', iniObj)
     save(expandTilde(options.file), iniObj)
+
+    console.log(`New credentials have been save to the profile ${options.mfaProfile}, expires ${expires}`)
 }
 
 main()
     .then(() => {
-        console.log('finished')
+        log('finished successfully')
     })
     .catch((err) => {
         console.error('failed', err)
