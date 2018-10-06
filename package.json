@@ -7,7 +7,9 @@
     "aws-mfa-util": "build/index.js"
   },
   "scripts": {
-    "test": "echo \"Info: There are no tests yet\" && exit 0"
+    "prepare": "npm run tsc",
+    "test": "echo \"Info: There are no tests yet\" && exit 0",
+    "tsc": "tsc && rm -rf build/bin && mkdir build/bin && cp build/index.js build/bin/aws-mfa-util && chmod +x build/bin/*"
   },
   "repository": {
     "type": "git",
