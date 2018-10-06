@@ -1,6 +1,6 @@
 # AWS MFA Credentials Helper
 
-![Build Status](https://app.codeship.com/projects/b93ec9a0-ab89-0136-b59c-565b68d8494a/status?branch=master)
+[ ![Codeship Status for zommarin/aws-mfa-util](https://app.codeship.com/projects/b93ec9a0-ab89-0136-b59c-565b68d8494a/status?branch=master)](https://app.codeship.com/projects/309289)
 
 A utility that implements MFA (Multi Factor Authentication, e.g. the Google Authenticator) support for the AWS CLI as well as applications using AWS APIs. It's purpose is similar to [Limes](https://github.com/otm/limes), but it works purely by manipulating the `~/.aws/credentials` file (Limes works by emulating the AWS metadata API).
 
