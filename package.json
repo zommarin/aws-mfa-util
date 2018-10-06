@@ -1,6 +1,6 @@
 {
   "name": "@zommarin/aws-mfa-util",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "AWS MFA Credentials Helper",
   "main": "build/index.js",
   "bin": {
