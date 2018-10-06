@@ -128,7 +128,7 @@ async function main() {
     log('ini', iniObj)
     save(expandTilde(options.file), iniObj)
 
-    console.log(`New credentials have been save to the profile ${options.mfaProfile}, expires ${expires}`)
+    console.log(`New credentials have been saved to the profile ${options.mfaProfile}, expires ${expires}`)
 }
 
 main()
