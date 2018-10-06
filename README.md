@@ -13,7 +13,7 @@ You need to have [Node.js](https://nodejs.org/en/) (and `npm` which is bundled) 
 Install the package globally using `npm`:
 
 ```bash
-npm install -g aws-mfa-util
+npm install -g @zommarin/aws-mfa-util
 ```
 
 The command should now be available as:
