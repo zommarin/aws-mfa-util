@@ -7,7 +7,7 @@
     "aws-mfa-util": "build/index.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Info: There are no tests yet\" && exit 0"
   },
   "repository": {
     "type": "git",
