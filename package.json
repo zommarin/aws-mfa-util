@@ -4,7 +4,7 @@
   "description": "MFA Credentials Helper",
   "main": "build/index.js",
   "bin": {
-    "aws-mfa-util": "build/index.js"
+    "aws-mfa-util": "build/bin/aws-mfa-util"
   },
   "scripts": {
     "prepare": "npm run tsc",
